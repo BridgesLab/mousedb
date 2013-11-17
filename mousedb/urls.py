@@ -26,10 +26,10 @@ urlpatterns = patterns('',
 	(r'^ajax_select/', include('ajax_select.urls')),	
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 	(r'^admin/', include(admin.site.urls)),
-    (r'^api/',include(v1_api.urls)),
-    url(r'^api_key/', APIKeyView.as_view(), name="api-keys"),	
-	url(r'^accounts/login/', 'django.contrib.auth.views.login', name="login"),
-	url(r'^accounts/logout/', 'mousedb.views.logout_view', name="logout"),
+        (r'^api/',include(v1_api.urls)),
+        url(r'^api_key/?', APIKeyView.as_view(), name="api-keys"),	
+	url(r'^accounts/login/?', 'django.contrib.auth.views.login', name="login"),
+	url(r'^accounts/logout/?', 'django.contrib.auth.views.logout', name="logout"),
 
 	url(r'^mouse/', include('mousedb.animal.urls.mouse')),
 	url(r'^mice/', include('mousedb.animal.urls.mouse')),
@@ -46,7 +46,7 @@ urlpatterns = patterns('',
 	url(r'^studies/', include('mousedb.data.urls.study')),
 	url(r'^treatments?/', include('mousedb.data.urls.treatment')),
 	url(r'^parameters?/', include('mousedb.data.urls.parameter')),
-    url(r'^cohorts?/', include('mousedb.data.urls.cohort')),
+        url(r'^cohorts?/', include('mousedb.data.urls.cohort')),
 
 	url(r'^plugs?/', include('mousedb.timed_mating.urls')),
 	url(r'^plugevents?/', include('mousedb.timed_mating.urls')),
@@ -56,7 +56,6 @@ urlpatterns = patterns('',
 	
 	url(r'^veterinary/', include('mousedb.veterinary.urls')),
 	
-	url(r'^index/$', 'mousedb.views.home', name="home"),
-	url(r'^/?$', 'mousedb.views.home')
+	url(r'^/?$', 'mousedb.views.home', name="home")
 )
 

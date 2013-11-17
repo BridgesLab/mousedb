@@ -5,6 +5,7 @@ These tests will verify function of the home and logout views.
 
 from django.test import TestCase
 from django.test.client import Client, RequestFactory
+from django.contrib.auth.models import User
 
 class RootViewTests(TestCase):
     """These are tests for the root views.  Included are tests for home and logout."""
@@ -25,39 +26,32 @@ class RootViewTests(TestCase):
 
     def test_home(self):
         """This test checks the view which displays the home page.  It checks for the correct templates and status code."""        
-        response = self.client.get('/index/')
+        response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'home.html')
-        factory_request = self.factory.get('/index/')
-        response_factory = home(factory_request)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'base.html')
-        self.assertTemplateUsed(response, 'home.html') 
 
     def test_logout(self):
         """This test checks the view which displays the logout page.  It checks for the correct templates and status code."""        
-        response = self.client.get('/logout/')
+        response = self.client.get('/accounts/logout')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/logged_out.html')
+        self.assertTemplateUsed(response, 'admin/base.html')
+        self.assertTemplateUsed(response, 'admin/base_site.html')
+  
+    def test_login(self):
+        """This test checks the view which displays the login page.  It checks for the correct templates and status code."""        
+        response = self.client.get('/accounts/login')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'base.html')
-        self.assertTemplateUsed(response, 'logout.html')
-        factory_request = self.factory.get('/logout/')
-        response_factory = home(factory_request)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'base.html')
-        self.assertTemplateUsed(response, 'logout.html') 
-        
+        self.assertTemplateUsed(response, 'registration/login.html')
+        self.assertTemplateUsed(response, 'jquery_script.html')
+        self.assertTemplateUsed(response, 'jquery_ui_script_css.html')
+        self.assertTemplateUsed(response, 'menu_script.html')
+
     def test_api_view(self):
-        """This test checks the view which displays the logout page.  It checks for the correct templates and status code."""        
+        """This test checks the view which displays the api keys.  It checks for the correct templates and status code."""        
         response = self.client.get('/api_key')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'api_key.html')
-        
-        factory_request = self.factory.get('/api_key')
-        response_factory = home(factory_request)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'base.html')
-        self.assertTemplateUsed(response, 'api_key.html')                 
-
-

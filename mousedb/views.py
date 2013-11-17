@@ -10,7 +10,6 @@ from braces.views import LoginRequiredMixin
 
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import logout
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -21,13 +20,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 from django.conf import settings
-
-def logout_view(request):
-    """This view logs out the current user.
-	
-    It redirects the user to the '/index/' page which in turn should redirect to the login page."""
-    logout(request)
-    return HttpResponseRedirect(reverse('home'))
 
 @login_required
 def home(request):
