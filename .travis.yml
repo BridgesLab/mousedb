@@ -5,6 +5,8 @@ python:
 env:
   global:
   - DJANGO_SETTINGS_MODULE="mousedb.travis_settings"
+  - DJANGO_VERSION=1.5
+  - DJANGO_VERSION=1.6
 # command to install dependencies
 install:
   - pip install coveralls
