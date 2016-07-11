@@ -28,6 +28,9 @@ class MedicalIssue(models.Model):
     def get_absolute_url(self):
         '''The url of a medical issue is **/veterinary/medical-issue/<id#>/**.'''
         return ('medical-issue-detail', [str(self.id)])             
+
+    class Meta:
+        ordering = ['-diagnosis']
     
 class MedicalCondition(models.Model):
     '''This model contains details about different types of medical conditions.
