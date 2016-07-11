@@ -58,6 +58,7 @@ class MedicalIssueUpdate(PermissionRequiredMixin, UpdateView):
     It requires the permissions to update a medical issue and is found at the url **/veterinary/medical-issue/<pk$>/edit**.'''
     
     permission_required = 'veterinary.update_medicalissue'
+    model = MedicalIssue
     form_class = MedicalIssueForm
     context_object_name = 'medical_issue'
     template_name = 'medical_issue_form.html'   
