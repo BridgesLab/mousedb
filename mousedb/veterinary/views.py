@@ -16,6 +16,7 @@ from django.core.urlresolvers import reverse_lazy
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from mousedb.veterinary.models import MedicalIssue,MedicalCondition,MedicalTreatment
+from mousedb.veterinary.forms import MedicalIssueForm
 
 class VeterinaryHome(LoginRequiredMixin, TemplateView):
     '''This view is the main page for the veterinary app.
@@ -48,8 +49,7 @@ class MedicalIssueCreate(PermissionRequiredMixin, CreateView):
     It requires the permissions to create a new medical issue and is found at the url **/veterinary/medical-issue/new**.'''
     
     permission_required = 'veterinary.create_medicalissue'
-    model = MedicalIssue
-    fields = '__all__'
+    form_class = MedicalIssueForm
     template_name = 'medical_issue_form.html'
     
 class MedicalIssueUpdate(PermissionRequiredMixin, UpdateView):
@@ -58,8 +58,7 @@ class MedicalIssueUpdate(PermissionRequiredMixin, UpdateView):
     It requires the permissions to update a medical issue and is found at the url **/veterinary/medical-issue/<pk$>/edit**.'''
     
     permission_required = 'veterinary.update_medicalissue'
-    model = MedicalIssue
-    fields = '__all__'
+    form_class = MedicalIssueForm
     context_object_name = 'medical_issue'
     template_name = 'medical_issue_form.html'   
     

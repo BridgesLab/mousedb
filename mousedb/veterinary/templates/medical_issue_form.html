@@ -10,6 +10,11 @@
 		$('#id_treatment_end').datepicker({dateFormat: 'yy-mm-dd'});		
 	});
 	</script>
+<link href="/mousedb-static/ajax_select/css/ajax_select.css" type="text/css" media="all" rel="stylesheet" />
+<script type="text/javascript" src="/mousedb-static/ajax_select/js/bootstrap.js"></script>
+<script type="text/javascript" src="/mousedb-static/ajax_select/js/ajax_select.js"></script>
+
+
 {% endblock %}
 {% block content %}
 <form method="POST" action="{% if medical_issue %}{% url "medical-issue-edit" medical_issue.id %} {% else %} {% url "medical-issue-new" %}{% endif %}">{% csrf_token %}
