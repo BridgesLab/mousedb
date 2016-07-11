@@ -41,8 +41,8 @@ class BreedingForm(ModelForm):
 	
     This form is used from the url /mousedb/breeding/new and is a generic create view.  This view includes a datepicker widget for Stat and End dates and autocomplete fields for the Females and Male fields
     """
-    Females = AutoCompleteSelectMultipleField('animals')
-    Male = AutoCompleteSelectMultipleField('animals')
+    Females = AutoCompleteSelectMultipleField('animals-alive')
+    Male = AutoCompleteSelectMultipleField('animals-alive')
     class Meta:   
         model = Breeding
         fields = "__all__"
