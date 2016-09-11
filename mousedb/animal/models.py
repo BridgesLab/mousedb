@@ -219,11 +219,15 @@ class Animal(models.Model):
              
     def age(self):
         """Calculates the animals age, relative to the current date (if alive) or the date of death (if not)."""
-        if self.Death:
-            age =  self.Death - self.Born
-        else:    
-            age =  datetime.date.today() - self.Born
-        return age.days    
+        if (self.Death != None and
+            self.Born != None):
+            age =  (self.Death - self.Born).days
+        elif (self.Death == None and
+            self.Born != None): 
+            age =  (datetime.date.today() - self.Born).days
+        else:   
+            age = None
+        return age    
 
     def breeding_male_location_type(self):
         """This attribute defines whether a male's current location is the same as the breeding cage to which it belongs.

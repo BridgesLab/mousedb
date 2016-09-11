@@ -251,6 +251,17 @@ class AnimalModelTests(TestCase):
         animal.save()
         self.assertEquals(animal.__unicode__(), "Fixture Strain-EarTag #1234")
         
+    def test_animal_age(self):
+        """This is a test for creating a new animal object, with only the minimum fields being entered"""
+        animal = Animal.objects.get(pk=1)
+        self.assertEquals(animal.age(), (datetime.date.today()-animal.Born).days)   
+        #marked animal as dead and recalculated
+        animal.Death = datetime.date(2015,12,24)
+        self.assertEquals(animal.age(),  1818) 
+        #marked animal as not being born to show null value
+        animal.Born = None
+        self.assertEquals(animal.age(),  None)    
+        
 class AnimalViewTests(TestCase):
     """Tests the views associated with animal objects."""
     
