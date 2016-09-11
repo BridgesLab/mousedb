@@ -285,7 +285,7 @@ class Breeding(models.Model):
     Females = models.ManyToManyField(Animal, blank=True, related_name="breeding_females")
     Male = models.ManyToManyField(Animal, related_name="breeding_males", blank=True) #should be males, but will have to check through the code to make sure this is ok to change
     Strain = models.ForeignKey(Strain, help_text="The strain of the pups")
-    Cage = models.CommaSeparatedIntegerField(blank=True, null=True)
+    Cage = models.CommaSeparatedIntegerField(max_length=100,blank=True, null=True)
     BreedingName = models.CharField(max_length=50, blank=True, verbose_name="Breeding Set Name")
     Start = models.DateField(blank=True, null=True)
     End = models.DateField(blank=True, null=True)
