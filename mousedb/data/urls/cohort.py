@@ -9,7 +9,7 @@ from django.conf.urls import url
 from mousedb.data.views import CohortDetail, CohortList, CohortUpdate, CohortDelete, CohortCreate, CohortData, CohortDataCSV
 
 urlpatterns = [
-	url(r'^/?$', CohortList.as_view(), name="cohort-list"),	
+	url(r'^$', CohortList.as_view(), name="cohort-list"),	
 	url(r'^new/?$', CohortCreate.as_view(), name="cohort-new"),	
 	url(r'^(?P<slug>[-\w\d]+)/edit/?$', CohortUpdate.as_view(), name="cohort-edit"),
 	url(r'^(?P<slug>[-\w\d]+)/delete/?$', CohortDelete.as_view(), name="cohort-delete"),

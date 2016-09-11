@@ -7,7 +7,7 @@ from django.conf.urls import url
 from mousedb.animal import views
 
 urlpatterns = [
-	url(r'^/?$', views.todo, name="todo-list"),
+	url(r'^$', views.todo, name="todo-list"),
     url(r'^eartag/?$', views.EarTagList.as_view(), name="todo-eartags"),
 	url(r'^genotype/$', views.GenotypeList.as_view(), name="todo-genotype"),
 	url(r'^wean/$',views.WeanList.as_view(), name="todo-weaning"),
