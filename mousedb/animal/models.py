@@ -185,8 +185,8 @@ class Animal(models.Model):
 
     This data model describes a wide variety of parameters of an experimental animal.  This model is linked to the Strain.  If the parentage of a mouse is known, this can be identified (the breeding set may not be clear on this matter). Mice are automatically marked as not alive when a Death date is provided and the object is saved.  Strain, Background and Genotype are required fields.  By default, querysets are ordered first by strain then by MouseID.
     """
-    MouseID = models.IntegerField(max_length = 10, blank = True, null=True)
-    Cage = models.IntegerField(max_length = 15, blank = True, null=True)
+    MouseID = models.IntegerField(blank = True, null=True)
+    Cage = models.IntegerField(blank = True, null=True)
     Rack = models.CharField(max_length = 15, blank = True)
     Rack_Position = models.CharField(max_length = 15, blank = True)
     Strain = models.ForeignKey(Strain)
@@ -197,8 +197,8 @@ class Animal(models.Model):
     Weaned = models.DateField(blank = True, null=True)
     Death = models.DateField(blank = True, null=True)
     Cause_of_Death = models.CharField(max_length = 50, choices = CAUSE_OF_DEATH, blank=True)
-    Backcross = models.IntegerField(max_length = 5, null=True, blank=True, help_text="Leave blank for mixed background")
-    Generation = models.IntegerField(max_length=5, null=True, blank=True)
+    Backcross = models.IntegerField(null=True, blank=True, help_text="Leave blank for mixed background")
+    Generation = models.IntegerField(null=True, blank=True)
     Breeding = models.ForeignKey('Breeding', blank=True, null=True)
     Father = models.ForeignKey('Animal', null=True, blank=True, related_name='father')
     Mother = models.ForeignKey('Animal', null=True, blank=True, related_name='mother')
@@ -285,7 +285,7 @@ class Breeding(models.Model):
     Females = models.ManyToManyField(Animal, blank=True, related_name="breeding_females")
     Male = models.ManyToManyField(Animal, related_name="breeding_males", blank=True) #should be males, but will have to check through the code to make sure this is ok to change
     Strain = models.ForeignKey(Strain, help_text="The strain of the pups")
-    Cage = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    Cage = models.CommaSeparatedIntegerField(blank=True, null=True)
     BreedingName = models.CharField(max_length=50, blank=True, verbose_name="Breeding Set Name")
     Start = models.DateField(blank=True, null=True)
     End = models.DateField(blank=True, null=True)
@@ -297,8 +297,8 @@ class Breeding(models.Model):
     Timed_Mating = models.BooleanField(default=False, help_text="Is this cage a timed mating cage?")
     genotype = models.CharField(max_length = 15, choices = GENOTYPE_CHOICES, default = 'N.D.', help_text="The genotype of the pups (if known)")
     background = models.CharField(max_length = 25, choices = BACKGROUND_CHOICES, default="Mixed", help_text="The background of the pups")
-    backcross = models.IntegerField(max_length = 5, null=True, blank=True, help_text="Leave blank for mixed background.  This is the backcross of the pups.")
-    generation = models.IntegerField(max_length=5, null=True, blank=True, help_text="The generation of the pups")
+    backcross = models.IntegerField(null=True, blank=True, help_text="Leave blank for mixed background.  This is the backcross of the pups.")
+    generation = models.IntegerField(null=True, blank=True, help_text="The generation of the pups")
 
     def duration(self):
         """Calculates the breeding cage's duration.
