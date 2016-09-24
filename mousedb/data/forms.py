@@ -66,9 +66,9 @@ class CohortForm(ModelForm):
 
     The form over-rides the animals field and replaces it with a checkbox.
     This is to prevent accidental unclicking of animals."""
-    
-    animals = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-        queryset=Animal.objects.all())
+
+    animals = AutoCompleteSelectMultipleField('animals', required=False)
+    #animals = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Animal.objects.all())
     class Meta:
         fields = "__all__"
         model = Cohort
