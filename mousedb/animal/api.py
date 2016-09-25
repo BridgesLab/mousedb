@@ -101,7 +101,7 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
-from mousedb.animal.models import Animal, Strain
+from mousedb.animal.models import Animal, Strain, Breeding
 
 class AnimalResource(ModelResource):
     '''This generates the API resource for :class:`~mousedb.animal.models.Animal` objects.
@@ -112,7 +112,7 @@ class AnimalResource(ModelResource):
     age = fields.IntegerField(attribute='age')
     treatment = fields.ManyToManyField('mousedb.data.api.TreatmentResource', 'treatment', full=True, null=True)
     cohort = fields.ManyToManyField('mousedb.data.api.CohortResource', 'cohort', full=True, null=True)    
-    
+    breeding = fields.ForeignKey('mousedb.animal.api.BreedingResource', 'Breeding', full=True, null=True)
     class Meta:
         '''The API serves all :class:`~mousedb.animal.models.Animal` objects in the database..'''
 
@@ -133,7 +133,8 @@ class AnimalResource(ModelResource):
                      "MouseID":ALL,
                      "strain":ALL_WITH_RELATIONS,
                      "cohort":ALL_WITH_RELATIONS,
-                     "treatment":ALL_WITH_RELATIONS}
+                     "treatment":ALL_WITH_RELATIONS,
+                     "breeding": ALL_WITH_RELATIONS}
         include_resource_uri = False
         authentication = ApiKeyAuthentication()  
         
@@ -154,4 +155,23 @@ class StrainResource(ModelResource):
         fields = ['Strain',]
         include_resource_uri = False
         authentication = ApiKeyAuthentication()
-        filtering = {"Strain":ALL}       
+        filtering = {"Strain":ALL}
+
+class BreedingResource(ModelResource):
+    '''This generates the API resource for :class:`~mousedb.animal.models.Breeding` objects.
+    This API is not visible, but instead is used by the AnimalResource
+    
+    It returns all strains in the database.
+    '''
+
+    class Meta:
+        '''The API serves all :class:`~mousedb.animal.models.Breeding` objects in the database..'''
+
+        queryset = Breeding.objects.all()
+        resource_name = 'breeding'
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
+        fields = ['id','Crosstype',]
+        include_resource_uri = False
+        authentication = ApiKeyAuthentication()
+        filtering = {"id":ALL,"Crosstype":ALL}      
