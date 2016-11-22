@@ -4,6 +4,7 @@ These directives will redirect requests to app specific pages, and provide redun
 
 from django.conf.urls import url, include
 from django.contrib import admin, auth
+from django.contrib.auth import views as auth_views
 
 from tastypie.api import Api
 from mousedb.data.api import MeasurementResource, AssayResource, ExperimentResource, StudyResource, TreatmentResource
@@ -36,8 +37,9 @@ urlpatterns = (
 	url(r'^admin/', include(admin.site.urls)),
     url(r'^api/',include(v1_api.urls)),
     url(r'^api_key/', APIKeyView.as_view(), name="api-keys"),	
-	url(r'^accounts/login/?$', auth.views.login, name="login"),
-	url(r'^accounts/logout/?$', logout_view, name="logout"),
+	#url(r'^accounts/login/?$', auth.views.login, name="login"),
+    url(r'^accounts/login/$', auth_views.login, {'template_name': 'login.html'}, name="login"),	
+    url(r'^accounts/logout/?$', logout_view, name="logout"),
 
 	url(r'^mouse/', include(mouse)),
 	url(r'^mice/', include(mouse)),
