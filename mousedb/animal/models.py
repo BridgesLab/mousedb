@@ -50,6 +50,13 @@ GENOTYPE_CHOICES = (
 		('+/+; +/+', 'Wild-Type, No Transgene'),        
 		)
 ),
+ ('Double Transgene',(
+                ('+/+; +/+', 'No Transgenes'),
+                ('Tg/+; Tg/+', 'Both Transgenes'),
+                ('Tg/+; +/+', 'First Transgene Only'),
+                ('+/+; Tg/+', 'Second Transgene Only'),
+                )
+),
 	('Single Knockout with Transgene',(
 		('+/+; Tg/+', 'Wild-Type, Heterozygous Transgene'),
 		('+/-; Tg/+', 'Heterozygous, Heterozygous Transgene'),		
