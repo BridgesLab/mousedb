@@ -312,11 +312,20 @@ class Breeding(models.Model):
 
         This is relative to the current date (if alive) or the date of inactivation (if not).
         The duration is formatted in days."""
-        if self.End:
-            age =  self.End - self.Start
-        else:    
-            age =  datetime.date.today() - self.Start
-        return age.days 
+        if self.End is not None:
+            if self.Start is not None:
+                age =  self.End - self.Start
+            else:
+                age = None
+        else:
+            if self.Start is not None:
+                age =  datetime.date.today() - self.Start
+            else:
+                age = None
+        if age is not None:
+            return age.days 
+        else:
+            return "No Age"
     
     def __unicode__(self):
         return u'%s Breeding Cage: %s starting on %s'  %(self.Strain, self.Cage, self.Start)
