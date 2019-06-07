@@ -244,10 +244,13 @@ class Animal(models.Model):
         try:
             self.breeding_males.all()[0].Cage
             if self.breeding_males.all()[0].Cage is not None:
-                if self.breeding_males.all()[0].Cage == int(self.Cage):
-                    type = "resident-breeder"
+                if self.Cage is not None:
+                    if self.breeding_males.all()[0].Cage == int(self.Cage):
+                        type = "resident-breeder"
+                    else:
+                        type = "non-resident-breeder" 
                 else:
-                    type = "non-resident-breeder" 
+                    type="unknown-breeder"
             else:
                 type = "unknown-breeder"                       
         except IndexError:
@@ -264,10 +267,13 @@ class Animal(models.Model):
         try:
             self.breeding_females.all()[0].Cage
             if self.breeding_females.all()[0].Cage is not None:
-                if self.breeding_females.all()[0].Cage == int(self.Cage):
-                    type = "resident-breeder"
+                if self.Cage is not None:
+                    if self.breeding_males.all()[0].Cage == int(self.Cage):
+                        type = "resident-breeder"
+                    else:
+                        type = "non-resident-breeder" 
                 else:
-                    type = "non-resident-breeder" 
+                    type="unknown-breeder"
             else:
                 type = "unknown-breeder"               
         except IndexError:
