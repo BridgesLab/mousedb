@@ -243,7 +243,7 @@ class Animal(models.Model):
         The location is relative to the first breeding cage an animal is assigned to."""
         try:
             self.breeding_males.all()[0].Cage
-            if int(self.breeding_males.all()[0].Cage) == int(self.Cage):
+            if hasattr(self.breeding_males.all()[0], 'Cage'):
                 type = "resident-breeder"
             else:
                 type = "non-resident-breeder"                
@@ -260,7 +260,7 @@ class Animal(models.Model):
         The location is relative to the first breeding cage an animal is assigned to."""
         try:
             self.breeding_females.all()[0].Cage
-            if int(self.breeding_females.all()[0].Cage) == int(self.Cage):
+            if hasattr(self.breeding_females.all()[0], 'Cage'):
                 type = "resident-breeder"
             else:
                 type = "non-resident-breeder"                
